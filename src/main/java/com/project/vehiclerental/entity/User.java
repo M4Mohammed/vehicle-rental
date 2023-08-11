@@ -48,6 +48,11 @@ public class User {
     @NotBlank(message = "Gender is required")
     @Column(name = "gender")
     private Gender gender;
+    
+    @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Role is required")
+    @Column(name = "role")
+    private Role role;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")

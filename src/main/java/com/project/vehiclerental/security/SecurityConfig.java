@@ -22,6 +22,7 @@ public class SecurityConfig {
         http.httpBasic(Customizer.withDefaults())
                 .addFilterBefore(new ApiKeyFilter(key), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
+                        .antMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
         return http.build();

@@ -17,6 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public List<UserDto> getAllUser() {
         return userRepository.findAll()
@@ -32,7 +33,9 @@ public class UserService {
     }
 
     public UserDto saveUser(UserDto userDto) {
-        return userMapper.toDto(userRepository.save(userMapper.toEntity(userDto)));
+        User user = userMapper.toEntity(userDto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userMapper.toDto(userRepository.save(user));
     }
 
     public UserDto updateUser(Long id, UserDto userDto) {
